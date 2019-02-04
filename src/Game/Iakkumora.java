@@ -4,7 +4,7 @@ import Tools.Debug;
 
 public class Iakkumora extends javax.swing.JFrame
 {
-	Debug debug = new Debug("Iakkumora", true);
+	Debug debug = new Debug("Iakkumora", true, false);
 	public static void main(String[] args) 
 	{
 		// Call Iakkumora Constructor

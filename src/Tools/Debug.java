@@ -2,14 +2,19 @@ package Tools;
 
 public class Debug
 {
-	String source;
-	Boolean enableGlobalLogging = false;
-	Boolean enableLocalLogging;
+	private String source;
+	private Boolean enableGlobalLogging;
+	private Boolean enableLocalLogging;
+	private Boolean enableGlobalStackTracing;
+	private Boolean enableLocalStackTracing;
 	
-	public Debug(String from, Boolean enable)//constructor
+	public Debug(String from, Boolean logEnable, Boolean stackEnable)//constructor
 	{
+		enableGlobalLogging = false;
+		enableGlobalStackTracing = false;
 		source = from;
-		enableLocalLogging = enable;
+		enableLocalLogging = logEnable;
+		enableLocalStackTracing = stackEnable;
 	}
 	
 	public void log(String message)
@@ -17,6 +22,10 @@ public class Debug
 		if(enableGlobalLogging || enableLocalLogging)
 		{
 			System.out.println(message + " in " + source);
+		}
+		if(enableGlobalStackTracing || enableLocalStackTracing)
+		{
+			new Exception().printStackTrace();
 		}
 	}
 }
