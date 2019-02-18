@@ -29,7 +29,7 @@ public class Iakkumora extends javax.swing.JFrame //basically this class is a JF
 	
 	//this string returns the main game screen when
 	// Iakkumora.mainWindow.getLayout().show(Iakkumora.mainWindow, Iakkumora.MAINSCREEN)
-	static String MAINSCREEN = "MainScreen";
+	static String PLAYSCREEN = "PlayScreen";
 	
 	Iakkumora() // constructor
 	{
@@ -69,20 +69,20 @@ class StartNewGame implements ActionListener //this exists for the newGameButton
 	{
 		//set up main game window
 		Iakkumora.mainWindow = new JFrame();
+		Iakkumora.mainWindow.setUndecorated(true); //no border or title bar must be done while frame is not visible
 		Iakkumora.mainWindow.setLayout(new CardLayout());
 		Iakkumora.mainWindow.setVisible(true);
 		Iakkumora.mainWindow.setSize((int)Math.round(Toolkit.getDefaultToolkit().getScreenSize().getWidth()), (int)Math.round(Toolkit.getDefaultToolkit().getScreenSize().getHeight()));
 		Iakkumora.mainWindow.setLocationRelativeTo(null);
-		//Iakkumora.mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		Iakkumora.mainWindow.setTitle("Iakkumora");
 		Iakkumora.mainWindow.getContentPane().setBackground(new Color(30, 100, 30));
 		
 		//create a JPanel "card" that will be the main game screen
-		JPanel gameScreen = new JPanel();
+		PlayScreen playScreen = new PlayScreen();
 		//TODO add necessary things to this panel
 		
 		//Add the frame to the screen
-		Iakkumora.mainWindow.add(gameScreen, Iakkumora.MAINSCREEN);
+		Iakkumora.mainWindow.add(playScreen, Iakkumora.PLAYSCREEN);
 		
 		//TODO if necessary add other "card" screens
 		
