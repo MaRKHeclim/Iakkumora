@@ -28,4 +28,9 @@ public class Debug
 			new Exception().printStackTrace();
 		}
 	}
+	
+	public void dumpObject(Object obj)
+	{
+		//TODO add a method to dump an object in JSON to the console
+	}
 }
