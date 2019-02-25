@@ -1,0 +1,3 @@
+# exclude everything except src and implicitly added files
+/*
+!/src
