@@ -8,11 +8,9 @@ import java.awt.event.*;
 
 public class PlayScreen extends JPanel implements ActionListener
 {
-	Debug debug = new Debug("PlayScreen", true, false);
-	
 	PlayScreen() //constructor
 	{
-	
+		Debug debug = new Debug("PlayScreen - Constructor", true, false);
 	}
 	
 	@Override

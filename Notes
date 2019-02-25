@@ -10,3 +10,7 @@ Tile -> Chunk -> Block -> Section -> Map
 		n = 6 -> 65
 		
 Use formula in declaration of array???
+
+
+
+gson to use JSON objects

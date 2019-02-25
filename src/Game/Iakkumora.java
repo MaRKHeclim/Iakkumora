@@ -11,9 +11,11 @@ import javax.swing.*;
 
 public class Iakkumora extends javax.swing.JFrame //basically this class is a JFrame
 {
-	Debug debug = new Debug("Iakkumora", true, false);
+	
 	public static void main(String[] args) 
 	{
+		Debug debug = new Debug("Iakkumora - main", true, false);
+		
 		// Call Iakkumora Constructor
 		Iakkumora game = new Iakkumora();
 		// Call Iakkumora Start Game
