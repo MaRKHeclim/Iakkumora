@@ -12,5 +12,18 @@ Tile -> Chunk -> Block -> Section -> Map
 Use formula in declaration of array???
 
 
-
 gson to use JSON objects
+
+Talks
+	Elan Ruskin GDC 2012
+
+Algorithms/Methods
+	Cellular Automata
+	Hillbert Curves
+	Z order Curves
+	Sentient Sketchbook
+	Diamond Square
+	AStar
+	ThetaStar
+	JumpPoint
+
