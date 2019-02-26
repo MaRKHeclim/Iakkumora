@@ -1,5 +1,7 @@
 package Tools;
 
+import com.google.gson.GsonBuilder;
+
 public class Debug
 {
 	private String source;
@@ -31,6 +33,7 @@ public class Debug
 	
 	public void dumpObject(Object obj)
 	{
-		//TODO add a method to dump an object in JSON to the console
+		//TODO Test the heck out of this
+		System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(obj));
 	}
 }
