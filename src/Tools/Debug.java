@@ -5,15 +5,19 @@ import com.google.gson.GsonBuilder;
 public class Debug
 {
 	private String source;
-	private Boolean enableGlobalLogging;
+	private Boolean enableLogging;
+	private Boolean enableAllLogging;
 	private Boolean enableLocalLogging;
-	private Boolean enableGlobalStackTracing;
+	private Boolean enableStackTracing;
+	private Boolean enableAllStackTracing;
 	private Boolean enableLocalStackTracing;
 	
 	public Debug(String from, Boolean logEnable, Boolean stackEnable)//constructor
 	{
-		enableGlobalLogging = false;
-		enableGlobalStackTracing = false;
+		enableLogging = true;
+		enableAllLogging = false;
+		enableStackTracing = true;
+		enableAllStackTracing = false;
 		source = from;
 		enableLocalLogging = logEnable;
 		enableLocalStackTracing = stackEnable;
@@ -21,11 +25,11 @@ public class Debug
 	
 	public void log(String message)
 	{
-		if(enableGlobalLogging || enableLocalLogging)
+		if(enableLogging && (enableAllLogging || enableLocalLogging))
 		{
 			System.out.println(message + " in " + source);
 		}
-		if(enableGlobalStackTracing || enableLocalStackTracing)
+		if(enableStackTracing && (enableAllStackTracing || enableLocalStackTracing))
 		{
 			new Exception().printStackTrace();
 		}

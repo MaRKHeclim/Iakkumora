@@ -6,11 +6,32 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
+import static Tools.MathFunctions.fastfloor;
+
 public class PlayScreen extends JPanel implements ActionListener
 {
+	int [][] map;
+	Color [] colors;
 	PlayScreen() //constructor
 	{
 		Debug debug = new Debug("PlayScreen - Constructor", true, false);
+		
+		map = new int[17][17];
+		for(int i = 0; i < map.length; i++)
+		{
+			for(int j = 0; j < map[0].length; j++)
+			{
+				map[i][j] = (fastfloor(Math.random() * 6));
+			}
+		}
+		
+		colors = new Color[6];
+		for(int i = 0; i < colors.length; i++)
+		{
+			colors[i] = new Color(fastfloor(Math.random() * 255), fastfloor(Math.random() * 255), fastfloor(Math.random() * 255));
+		}
+		
+		Timer time = new Timer(15,this);
 	}
 	
 	@Override
@@ -20,7 +41,7 @@ public class PlayScreen extends JPanel implements ActionListener
 		//move();
 		//for x and y check collisions
 		//regenerate (health, stamina, mana)
-		//repaint();
+		repaint();
 	}
 	
 	@Override
@@ -32,66 +53,14 @@ public class PlayScreen extends JPanel implements ActionListener
 		//TODO Objects should know how to draw themselves!!!
 		//TODO map.draw(); or map.draw(x, y);
 		
-	}
-	
-	//TODO Keyboard Events
-	//Adapter over listener so that not all methods have to be defined
-	//there is a keyTyped event that may be useful if non-keyboard characters may be entered
-	//		for example if an alt-code is used - it may??? provide the character
-	// 			≈ instead of ALT, 0, 2, 4, 7...
-	private class KL extends KeyAdapter
-	{
-		@Override
-		public void keyPressed(KeyEvent e)
+		for(int i = 0; i < map.length; i++)
 		{
-			int keyCode = e.getKeyCode();
-			switch (keyCode) {
-				case KeyEvent.VK_ESCAPE:
-					//TODO add a prompt hefore exiting
-					System.exit(0);
-				break;
-				
-				default:
-				
-				break;
-			}
-		}
-		
-		@Override
-		public void keyReleased(KeyEvent e)
-		{
-			int keyCode = e.getKeyCode();
-			switch (keyCode) {
-				default:
-				
-				break;
+			for(int j = 0; j < map[0].length; j++)
+			{
+				g2d.setColor(colors[map[i][j]]);
+				g2d.fillRect(i * 25, j * 25, 25, 25);
 			}
 		}
 	}
 	
-	//TODO Mouse Events
-	private class ML extends MouseAdapter
-	{
-		@Override
-		public void mousePressed(MouseEvent e)
-		{
-		
-		}
-		
-		@Override
-		public void mouseReleased(MouseEvent e)
-		{
-		
-		}
-	}
-	
-	//TODO Window Events
-	private class WL extends WindowAdapter
-	{
-		@Override
-		public void windowClosing(WindowEvent e)
-		{
-			//try {Thread.currentThread().join();} catch (interruptedException ex) {}
-		}
-	}
 }

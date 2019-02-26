@@ -3,9 +3,7 @@ package Game;
 import Tools.Debug;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
 import javax.swing.*;
 
@@ -54,10 +52,12 @@ public class Iakkumora extends javax.swing.JFrame //basically this class is a JF
 		//create a new game button
 		//that when pressed calls the actionPerformed method of the StartNewGame class
 		JButton newGameButton = new JButton("New Game");
+		newGameButton.addActionListener(new StartNewGame());
 		newGameButton.setSize(200,100);
+		newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		newGameButton.setBackground(new Color(30,190,190));
 		newGameButton.setMnemonic(KeyEvent.VK_N);
-		newGameButton.addActionListener(new StartNewGame());
+		
 		
 		//add the new game button to the main window
 		launcherWindow.add(newGameButton);
@@ -71,6 +71,7 @@ class StartNewGame implements ActionListener //this exists for the newGameButton
 	{
 		//set up main game window
 		Iakkumora.mainWindow = new JFrame();
+		Iakkumora.mainWindow.addWindowListener(new WL());
 		Iakkumora.mainWindow.setUndecorated(true); //no border or title bar must be done while frame is not visible
 		Iakkumora.mainWindow.setLayout(new CardLayout());
 		Iakkumora.mainWindow.setVisible(true);
@@ -78,6 +79,9 @@ class StartNewGame implements ActionListener //this exists for the newGameButton
 		Iakkumora.mainWindow.setLocationRelativeTo(null);
 		Iakkumora.mainWindow.setTitle("Iakkumora");
 		Iakkumora.mainWindow.getContentPane().setBackground(new Color(30, 100, 30));
+		Iakkumora.mainWindow.addKeyListener(new KL());
+		Iakkumora.mainWindow.addMouseListener(new ML());
+		
 		
 		//create a JPanel "card" that will be the main game screen
 		PlayScreen playScreen = new PlayScreen();
@@ -88,6 +92,81 @@ class StartNewGame implements ActionListener //this exists for the newGameButton
 		
 		//TODO if necessary add other "card" screens
 		
+	}
+	
+	
+	//TODO Keyboard Events
+	//Adapter over listener so that not all methods have to be defined
+	//there is a keyTyped event that may be useful if non-keyboard characters may be entered
+	//		for example if an alt-code is used - it may??? provide the character
+	// 			≈ instead of ALT, 0, 2, 4, 7...
+	private class KL extends KeyAdapter
+	{
+		@Override
+		public void keyPressed(KeyEvent e)
+		{
+			Debug debug = new Debug("PlayScreen - KL - keyPressed", true, false);
+			debug.log("made it!");
+			
+			int keyCode = e.getKeyCode();
+			
+			debug.log(Integer.toString(keyCode));
+			
+			switch (keyCode) {
+				case KeyEvent.VK_ESCAPE:
+					//TODO add a prompt hefore exiting
+					System.exit(0);
+					break;
+				
+				default:
+					
+					break;
+			}
+		}
+		
+		@Override
+		public void keyReleased(KeyEvent e)
+		{
+			Debug debug = new Debug("PlayScreen - KL - keyReleased", true, false);
+			debug.log("made it!");
+			
+			int keyCode = e.getKeyCode();
+			
+			debug.log(Integer.toString(keyCode));
+			
+			
+			switch (keyCode) {
+				default:
+					
+					break;
+			}
+		}
+	}
+	
+	//TODO Mouse Events
+	private class ML extends MouseAdapter
+	{
+		@Override
+		public void mousePressed(MouseEvent e)
+		{
+		
+		}
+		
+		@Override
+		public void mouseReleased(MouseEvent e)
+		{
+		
+		}
+	}
+	
+	//TODO Window Events
+	private class WL extends WindowAdapter
+	{
+		@Override
+		public void windowClosing(WindowEvent e)
+		{
+			//try {Thread.currentThread().join();} catch (interruptedException ex) {}
+		}
 	}
 }
 
