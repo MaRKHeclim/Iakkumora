@@ -105,7 +105,7 @@ class StartNewGame implements ActionListener //this exists for the newGameButton
 		@Override
 		public void keyPressed(KeyEvent e)
 		{
-			Debug debug = new Debug("PlayScreen - KL - keyPressed", true, false);
+			Debug debug = new Debug("Iakkumora - KL - keyPressed", true, false);
 			debug.log("made it!");
 			
 			int keyCode = e.getKeyCode();
@@ -115,7 +115,7 @@ class StartNewGame implements ActionListener //this exists for the newGameButton
 			switch (keyCode) {
 				case KeyEvent.VK_ESCAPE:
 					//TODO add a prompt hefore exiting
-					System.exit(0);
+					Iakkumora.mainWindow.dispose();
 					break;
 				
 				default:
@@ -127,7 +127,7 @@ class StartNewGame implements ActionListener //this exists for the newGameButton
 		@Override
 		public void keyReleased(KeyEvent e)
 		{
-			Debug debug = new Debug("PlayScreen - KL - keyReleased", true, false);
+			Debug debug = new Debug("Iakkumora - KL - keyReleased", true, false);
 			debug.log("made it!");
 			
 			int keyCode = e.getKeyCode();
