@@ -27,3 +27,47 @@ Algorithms/Methods
 	ThetaStar
 	JumpPoint
 
+
+
+
+
+
+HI Matthew,
+
+
+
+Here is an idea for some free things you could study on data and how to manipulate it.
+
+
+
+Algorithms and how you might process the data you’re working on…
+
+https://www.coursera.org/specializations/data-structures-algorithms
+
+
+
+Databases and how they are used to store and retrieve data – all the way up to big data systems.
+
+https://www.coursera.org/specializations/data-systems
+
+
+
+Or, you may find one of these more interesting…
+
+https://www.coursera.org/courses?query=game%20programming
+
+
+
+Or, maybe a game engine would turn you on?
+
+https://www.meetup.com/Unity3D-Minneapolis/
+
+https://www.meetup.com/Unreal-4-Minneapolis/
+
+
+
+Regards,
+
+
+
+    Eric

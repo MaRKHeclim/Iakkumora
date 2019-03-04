@@ -25,7 +25,7 @@ public class Iakkumora extends javax.swing.JFrame //basically this class is a JF
 	Iakkumora launcherWindow;
 	
 	//this is the main window
-	static JFrame mainWindow;
+	public static JFrame mainWindow;
 	
 	//this string returns the main game screen when
 	// Iakkumora.mainWindow.getLayout().show(Iakkumora.mainWindow, Iakkumora.MAINSCREEN)
