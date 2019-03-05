@@ -14,7 +14,7 @@ public class Map
 	ArrayList<Integer> xCoordinate;
 	ArrayList<Integer> yCoordinate;
 	
-	ArrayList<Color> colors;
+	static ArrayList<Color> colors;
 	
 	public Map() //Constructor
 	{
@@ -25,7 +25,7 @@ public class Map
 		xCoordinate = new ArrayList<>(0);
 		yCoordinate = new ArrayList<>(0);
 		
-		colors = new ArrayList<>(6);
+		
 		
 		for(int i = -1; i <= 1; i++)
 		{
@@ -38,10 +38,7 @@ public class Map
 		debug.log("xCoordinate: " + xCoordinate.toString());
 		debug.log("yCoordinate: " + yCoordinate.toString());
 		
-		for(int i = 0; i < 6; i++)
-		{
-			colors.add(new Color(fastfloor(Math.random() * 255), fastfloor(Math.random() * 255), fastfloor(Math.random() * 255)));
-		}
+		
 	}
 	
 	void generate (int x, int y)
@@ -90,6 +87,21 @@ public class Map
 		{
 			g2d.setColor(colors.get(map.get(i)));
 			g2d.fillRect(xCoordinate.get(i) * scale + horizontalOffset, yCoordinate.get(i) * scale + verticalOffset, scale, scale);
+		}
+	}
+	
+	//TODO determine if this is necessary
+	public Color getColor(int i)
+	{
+		return colors.get(i);
+	}
+	
+	static
+	{
+		colors = new ArrayList<>(6);
+		for(int i = 0; i < 6; i++)
+		{
+			colors.add(new Color(fastfloor(Math.random() * 255), fastfloor(Math.random() * 255), fastfloor(Math.random() * 255)));
 		}
 	}
 }

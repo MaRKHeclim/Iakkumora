@@ -2,9 +2,10 @@ package Map;
 
 import java.awt.*;
 
-public class Section extends MapSubset
+public class Chunk extends MapSubset
 {
-	Section()//Constructor
+	
+	Chunk()//constructor
 	{
 		n = 2;
 	}
