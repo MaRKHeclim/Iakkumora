@@ -4,7 +4,7 @@ package Tools;
 
 public class MathFunctions
 {
-    public static double getDistance(double x1, double y1, double x2, double y2)
+    public static double getDistance(double x1, double y1, double x2, double y2) //Euclidian distance
     {
         return Math.hypot(x2 - x1, y2 - y1);
     }
@@ -37,5 +37,10 @@ public class MathFunctions
     public static double getAngleRad(double m1x, double m1y, double m2x, double m2y){
         //double degrees =  (Math.atan2(m1y - m2y, m2x - m1x ));
         return (Math.atan2(m1y - m2y, m2x - m1x ));
+    }
+    
+    public static double scale(double x, double fromMin, double fromMax, double toMin, double toMax)
+    {
+        return (x - fromMin) / (fromMax - fromMin) * (toMax - toMin) + toMin;
     }
 }
