@@ -91,7 +91,7 @@ public class Map
 	}
 	
 	//TODO determine if this is necessary
-	public Color getColor(int i)
+	public static Color getColor(int i)
 	{
 		return colors.get(i);
 	}

@@ -4,9 +4,11 @@ import java.awt.*;
 
 public class Section extends MapSubset
 {
-	Section()//Constructor
+	Section(int x, int y)//Constructor
 	{
-		n = 2;
+		this.x = x;
+		this.y = y;
+		n = 3;
 	}
 	
 	@Override
