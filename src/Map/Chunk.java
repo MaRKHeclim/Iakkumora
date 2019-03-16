@@ -9,8 +9,6 @@ public class Chunk extends MapSubset
 	{
 		this.x = x;
 		this.y = y;
-		n = 2;
-		d = (int) Math.pow(n, 2) + 1;
 		tileArray = new Tile[d][d];
 		for(int i = 0; i < d; i++)
 		{
@@ -21,6 +19,12 @@ public class Chunk extends MapSubset
 		}
 	}
 	
+	static
+	{
+		n = 2;
+		d = (int) Math.pow(2, n) + 1;
+	}
+	
 	@Override
 	Tile getTile(int x, int y)
 	{
@@ -28,13 +32,13 @@ public class Chunk extends MapSubset
 	}
 	
 	@Override
-	void draw(Graphics2D g2d, int x, int y, int horizontalOffset, int verticalOffset, int scale)
+	void draw(Graphics2D g2d, int horizontalOffset, int verticalOffset, int scale)
 	{
 		for(int i = 0; i < d; i++)
 		{
 			for(int j = 0; j < d; j++)
 			{
-				tileArray[i][j].draw(g2d, x * d * scale + i + horizontalOffset, y * d * scale + j + verticalOffset, scale);
+				tileArray[i][j].draw(g2d, horizontalOffset, verticalOffset, scale);
 			}
 		}
 	}

@@ -19,6 +19,6 @@ public class Tile
 	void draw(Graphics2D g2d, int horizontalOffset, int verticalOffset, int scale)
 	{
 		g2d.setColor(Map.getColor(biome));
-		g2d.fillRect(x * scale + horizontalOffset, y * scale + verticalOffset, scale, scale);
+		g2d.fillRect((x * scale) + horizontalOffset, (y * scale) + verticalOffset, scale, scale);
 	}
 }

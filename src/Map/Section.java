@@ -1,5 +1,7 @@
 package Map;
 
+import Tools.Debug;
+
 import java.awt.*;
 
 public class Section extends MapSubset
@@ -8,7 +10,13 @@ public class Section extends MapSubset
 	{
 		this.x = x;
 		this.y = y;
+	}
+	
+	static
+	{
 		n = 3;
+		d = (int) Math.pow(2, n) + 1;
+		Debug debug = new Debug("Section - Static", true, false);
 	}
 	
 	@Override
@@ -18,7 +26,7 @@ public class Section extends MapSubset
 	}
 	
 	@Override
-	void draw(Graphics2D g2d, int x, int y, int horizontalOffset, int verticalOffset, int scale)
+	void draw(Graphics2D g2d, int horizontalOffset, int verticalOffset, int scale)
 	{
 	
 	}
