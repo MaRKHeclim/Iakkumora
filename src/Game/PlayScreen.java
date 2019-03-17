@@ -18,7 +18,7 @@ public class PlayScreen extends JPanel implements ActionListener
 		Debug debug = new Debug("PlayScreen - Constructor", true, false);
 		
 		map = new Map();
-		scale = 50;
+		scale = 5;
 		Timer time = new Timer(15,this);
 	}
 	

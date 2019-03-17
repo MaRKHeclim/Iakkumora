@@ -10,7 +10,7 @@ import static Tools.MathFunctions.fastfloor;
 
 public class Map
 {
-	Chunk map;
+	Section[][] map;
 	ArrayList<Integer> xCoordinate;
 	ArrayList<Integer> yCoordinate;
 	
@@ -35,7 +35,7 @@ public class Map
 //			}
 //		}
 		
-		map = new Chunk(0,0);
+		map = new Section(0,0);
 		
 		debug.log("map: " + map.toString());
 		debug.log("xCoordinate: " + xCoordinate.toString());
@@ -79,12 +79,12 @@ public class Map
 	
 	public void draw (Graphics2D g2d, int x, int y, int windowCenterX, int windowCenterY, int scale)
 	{
-		Debug debug = new Debug("Map - draw", true, false);
+		Debug debug = new Debug("Map - draw", false, false);
 		debug.log("map: ");
 		debug.dumpObject(map);
 		
-		int horizontalOffset = windowCenterX - (Chunk.getD() / 2 * scale) - (scale / 2);
-		int verticalOffset = windowCenterY - (Chunk.getD() / 2 * scale) - (scale / 2);
+		int horizontalOffset = windowCenterX - scale * Chunk.getD() * Block.getD() * Section.getD() / 2;
+		int verticalOffset = windowCenterY - scale * Chunk.getD() * Block.getD() * Section.getD() / 2;
 		
 //		for(int i = 0; i < map.size(); i++)
 //		{
@@ -96,6 +96,7 @@ public class Map
 	}
 	
 	//TODO determine if this is necessary
+	//probably not... will probably get replaced by something in biome...
 	public static Color getColor(int i)
 	{
 		return colors.get(i);

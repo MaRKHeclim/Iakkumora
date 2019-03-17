@@ -37,7 +37,9 @@ public class Debug
 	
 	public void dumpObject(Object obj)
 	{
-		//TODO Test the heck out of this
-		System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(obj));
+		if(enableLogging && (enableAllLogging || enableLocalLogging))
+		{
+			System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(obj));
+		}
 	}
 }
