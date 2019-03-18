@@ -11,7 +11,7 @@ public class Section
 	Block[][] blockArray;
 	Section(int x, int y)//Constructor
 	{
-		Debug debug = new Debug("Section - Constructor", true, false);
+		Debug debug = new Debug("Section - Constructor", false, false);
 		debug.log("Creating a new Section");
 		this.x = x;
 		this.y = y;
