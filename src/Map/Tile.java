@@ -2,6 +2,7 @@ package Map;
 
 import java.awt.*;
 
+import static Tools.MathFunctions.scale;
 import static Tools.MathFunctions.fastfloor;
 
 public class Tile
@@ -13,7 +14,7 @@ public class Tile
 	{
 		this.x = x;
 		this.y = y;
-		biome = fastfloor(Math.random() * 6);
+		biome = fastfloor(scale(Map.mapRNG.next(), 0, 65538, 0, 6));
 	}
 	
 	void draw(Graphics2D g2d, int horizontalOffset, int verticalOffset, int scale)

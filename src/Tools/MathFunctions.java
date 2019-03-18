@@ -43,4 +43,9 @@ public class MathFunctions
     {
         return (x - fromMin) / (fromMax - fromMin) * (toMax - toMin) + toMin;
     }
+    
+    public static double scale(int x, double fromMin, double fromMax, double toMin, double toMax)
+    {
+        return (x - fromMin) / (fromMax - fromMin) * (toMax - toMin) + toMin;
+    }
 }

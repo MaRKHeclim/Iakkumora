@@ -2,11 +2,13 @@ package Map;
 
 import Game.Iakkumora;
 import Tools.Debug;
+import Tools.PseudoRNG;
 
 import java.awt.*;
 import java.util.ArrayList;
 
 import static Tools.MathFunctions.fastfloor;
+import static Tools.MathFunctions.scale;
 
 public class Map
 {
@@ -14,10 +16,14 @@ public class Map
 	
 	static ArrayList<Color> colors;
 	
+	static PseudoRNG mapRNG;
+	static int mapSeed;
+	
 	public Map() //Constructor
 	{
 		Debug debug = new Debug("Map - Constructor", false, false);
 		debug.log("here");
+		
 		
 		
 		map = new Section[3][3];
@@ -141,10 +147,15 @@ public class Map
 	
 	static
 	{
+		mapSeed = 1;
+		mapRNG = new PseudoRNG(16, mapSeed);
+		
 		colors = new ArrayList<>(6);
 		for(int i = 0; i < 6; i++)
 		{
-			colors.add(new Color(fastfloor(Math.random() * 255), fastfloor(Math.random() * 255), fastfloor(Math.random() * 255)));
+			colors.add(new Color(fastfloor(scale(Map.mapRNG.next(), 0, 65538, 0, 255)), 		//r
+					fastfloor(scale(Map.mapRNG.next(), 0, 65538, 0, 255)),					//g
+					fastfloor(scale(Map.mapRNG.next(), 0, 65538, 0, 255))));					//b
 		}
 	}
 }
