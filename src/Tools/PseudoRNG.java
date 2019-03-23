@@ -31,7 +31,8 @@ public class PseudoRNG
 	 * <p>
 	 * @throws IllegalArgumentException if n < 2 or n > 32
 	 */
-	public PseudoRNG(int n) throws IllegalArgumentException {
+	public PseudoRNG(int n) throws IllegalArgumentException
+	{
 		this(n, 1);
 	}
 	
@@ -41,7 +42,8 @@ public class PseudoRNG
 	 * @throws IllegalArgumentException if n < 2 or n > 32;
 	 * if seed == 0 or has high bits (i.e. beyond the nth bit) set
 	 */
-	public PseudoRNG(int n, int seed) throws IllegalArgumentException {
+	public PseudoRNG(int n, int seed) throws IllegalArgumentException
+	{
 		if (n < 2) throw new IllegalArgumentException("n = " + n + " < 2");
 		if (n > 32) throw new IllegalArgumentException("n = " + n + " > 32");
 		if (seed == 0) throw new IllegalArgumentException("seed == 0; illegal because this will cause the internal state to be stuck at 0 forever");
@@ -57,13 +59,22 @@ public class PseudoRNG
 	// -------------------- accessors --------------------
 	
 	/** Accessor for {@link #mask}. */
-	public int getMask() { return mask; }
+	public int getMask()
+	{
+		return mask;
+	}
 	
 	/** Accessor for {@link #taps}. */
-	public int getTaps() { return taps; }
+	public int getTaps()
+	{
+		return taps;
+	}
 	
 	/** Accessor for {@link #register}. */
-	public int getRegister() { return register; }
+	public int getRegister()
+	{
+		return register;
+	}
 	
 	// -------------------- makeSeedNext, makeSeedRandom, makeMask, makeTaps --------------------
 	
@@ -75,12 +86,14 @@ public class PseudoRNG
 	 * <p>
 	 * @throws IllegalArgumentException if n < 0 or n > 32
 	 */
-	public static int makeSeedNext(int n) throws IllegalArgumentException {
+	public static int makeSeedNext(int n) throws IllegalArgumentException
+	{
 		// n checked by makeMask below
 		
 		int mask = makeMask(n);
 		int seed;
-		do {
+		do
+		{
 			seed = (count++) & mask; // CRITICAL: must mask seed in order to make it be a valid LFSR state
 		} while (seed == 0);
 		return seed;
@@ -94,7 +107,8 @@ public class PseudoRNG
 	 * <p>
 	 * @throws IllegalArgumentException if n < 0 or n > 32
 	 */
-	public static int makeSeedRandom(int n) throws IllegalArgumentException {
+	public static int makeSeedRandom(int n) throws IllegalArgumentException
+	{
 		// n checked by makeMask below
 		
 		int mask = makeMask(n);
@@ -112,31 +126,32 @@ public class PseudoRNG
 	 * <p>
 	 * @throws IllegalArgumentException if n < 0 or n > 32
 	 */
-	private static int makeMask(int n) throws IllegalArgumentException {
+	private static int makeMask(int n) throws IllegalArgumentException
+	{
 		if (n < 0 || n > 32) throw new IllegalArgumentException("n must be between 0 and 32. n = " + n);
 		
 		if (n == 32) return ~0; // ~0 is thirty two 1's in binary
-   /*
-   The n = 32 special case must be detected for two reasons, one obvious and one subtle.
-   
-   The obvious reason is that any int that is left shifted by 32 or more ought to pushed into a long value which is impossible, so you know something weird must happen.
-   
-   The subtle reason is the details of how Java's shift operators (<<, >>, >>>) work:
-   they only use the 5 lower bits of the right side operand (i.e. shift amount).
-   (This statement assumes that the left hand operand is an int; if it is a long, then the lower 6 bits are used.)
-   THIS MEANS THAT THEY ONLY DO WHAT YOU THINK THEY WILL WHEN THE SHIFT AMOUNT IS INSIDE THE RANGE [0, 31].
-   So, in the code above, 1 << n when n = 32 evaluates to 1 << 0 (because 32 has 0 in its lower 5 bits)
-   so the overall expression is then (1 << 0) - 1 == 1 - 1 == 0 which is a wrong result.
-   
-   This "use only the lower shift bits" behavior is why this code (also suggested by Sean Anderson)
-    return (~0) >>> (32 - n);
-   cannot be used: it fails at n = 0 (returning thirty two ones instead of 0).
-   
-   References:
-    http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6201273
-    http://www.davidflanagan.com/blog/000021.html
-    http://java.sun.com/docs/books/jls/third_edition/html/expressions.html#15.19
-   */
+		/*
+		The n = 32 special case must be detected for two reasons, one obvious and one subtle.
+		
+		The obvious reason is that any int that is left shifted by 32 or more ought to pushed into a long value which is impossible, so you know something weird must happen.
+		
+		The subtle reason is the details of how Java's shift operators (<<, >>, >>>) work:
+		they only use the 5 lower bits of the right side operand (i.e. shift amount).
+		(This statement assumes that the left hand operand is an int; if it is a long, then the lower 6 bits are used.)
+		THIS MEANS THAT THEY ONLY DO WHAT YOU THINK THEY WILL WHEN THE SHIFT AMOUNT IS INSIDE THE RANGE [0, 31].
+		So, in the code above, 1 << n when n = 32 evaluates to 1 << 0 (because 32 has 0 in its lower 5 bits)
+		so the overall expression is then (1 << 0) - 1 == 1 - 1 == 0 which is a wrong result.
+		
+		This "use only the lower shift bits" behavior is why this code (also suggested by Sean Anderson)
+		return (~0) >>> (32 - n);
+		cannot be used: it fails at n = 0 (returning thirty two ones instead of 0).
+		
+		References:
+		http://bugs.sun.com/bugdatabase/view_bug.do?bug_id=6201273
+		http://www.davidflanagan.com/blog/000021.html
+		http://java.sun.com/docs/books/jls/third_edition/html/expressions.html#15.19
+		*/
 		
 		return (1 << n) - 1; // acknowledgement: this technique sent to me by Sean Anderson, author of http://graphics.stanford.edu/~seander/bithacks.html
 	}
@@ -146,13 +161,15 @@ public class PseudoRNG
 	 * <p>
 	 * @throws IllegalArgumentException if n < 2 or n > 32
 	 */
-	private static int makeTaps(int n) throws IllegalArgumentException {
+	private static int makeTaps(int n) throws IllegalArgumentException
+	{
 		// There is no easy algorithm to generate the taps as a function of n.
 		// Instead simply have to rely on known results.
 		// The values below are all taken from http://homepage.mac.com/afj/taplist.html
 		// (except for case 2; I think that I figured that one out myself).
 		// A less complete reference is http://en.wikipedia.org/wiki/Linear_feedback_shift_register#Some_Polynomials_for_Maximal_LFSRs
-		switch (n) {
+		switch (n)
+		{
 			case 2: return  (1 << 1) | (1 << 0); // i.e. 2 1
 			case 3: return  (1 << 2) | (1 << 1); // i.e. 3 2
 			case 4: return  (1 << 3) | (1 << 2); // i.e. 4 3
@@ -194,7 +211,10 @@ public class PseudoRNG
 	// -------------------- next --------------------
 	
 	/** Convenience method that simply returns {@link #next next}(1). */
-	public int next() { return next(1); }
+	public int next()
+	{
+		return next(1);
+	}
 	
 	/**
 	 * Advances the internal state of this instance by numberTransitions.
@@ -209,13 +229,15 @@ public class PseudoRNG
 	 * @return the final value of the internal state after all the transitions have been carried out
 	 * @throws IllegalArgumentException if numberTransitions < 0
 	 */
-	public int next(long numberTransitions) throws IllegalArgumentException {
+	public int next(long numberTransitions) throws IllegalArgumentException
+	{
 		if(numberTransitions < 0)
 		{
 			throw new IllegalArgumentException("numberTransitions = " + numberTransitions + " < 0");
 		}
 		
-		for (long i = 0; i < numberTransitions; i++) {
+		for (long i = 0; i < numberTransitions; i++)
+		{
 			register = ((register >>> 1) ^ (-(register & 1) & taps)) & mask; // register & 1 selects the low order bit, and do - to create an int that is all 1's if was 1, or all 0's if was 0; the rest is easy to understand
 		}
 		return register;

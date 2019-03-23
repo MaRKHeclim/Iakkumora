@@ -42,6 +42,8 @@ public class Map
 		
 	}
 	
+	//creates a new section
+	// - called by constructor and move???
 	void generate (int x, int y)
 	{
 		Debug debug = new Debug("Map - Generate", true, false);
@@ -52,44 +54,102 @@ public class Map
 		add(newSection, x, y);
 	}
 	
+	//adds a section to the map
+	// - called by generate and load
 	void add (Section sectionToAdd, int x, int y)
 	{
 		Debug debug = new Debug("Map - Add", true, false);
-		int mapX;
-		int mapY;
 		try
 		{
-			mapX = map[0][0].getX();
-			mapY = map[0][0].getY();
+			int mapX = map[0][0].getX();
+			int mapY = map[0][0].getY();
 			int xDiff = x - mapX;
 			int yDiff = y - mapY;
-			if(xDiff < 0)
+			if((xDiff < -1) || (xDiff > 3) || (yDiff < -1) || (yDiff > 3)) // xDiff or yDiff is more than one outside of the map
 			{
-				//the section to add is to the left of the existing map
-				//shift map left
-				debug.log("xDiff < 0. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
-			}
-			else if (xDiff > 2)
-			{
-				//the section to add is to the right of the existing map
-				//shift map right
-				debug.log("xDiff > 2. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
-			}
-			else if (yDiff < 0)
-			{
-				//the section to add is below the existing map
-				//shift map down
-				debug.log("yDiff < 0. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
-			}
-			else if (yDiff > 2)
-			{
-				//the section to add is above the existing map
-				//shift map up
-				debug.log("yDiff < 2. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
+				debug.enableStackTracing();
+				debug.log("xDiff or yDiff out of bounds... Going to have problems... xDiff: " + xDiff + " yDiff: " + yDiff);
+				debug.disableStackTracing();
 			}
 			else
 			{
-				map[xDiff][yDiff] = sectionToAdd;
+				if (xDiff < 0)
+				{
+					//the section to add is to the left of the existing map
+					//shift map left
+					debug.log("xDiff < 0. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
+					shiftLEFT();
+					//recalculate xDiff and yDiff
+					mapX = map[0][0].getX();
+					mapY = map[0][0].getY();
+					xDiff = x - mapX;
+					yDiff = y - mapY;
+					//add new section to map and
+					// store it in case of bad things...
+					map[xDiff][yDiff] = sectionToAdd;
+					store(xDiff, yDiff);
+					//make sure map is full
+					fillMap();
+				}
+				else if (xDiff > 2)
+				{
+					//the section to add is to the right of the existing map
+					//shift map right
+					debug.log("xDiff > 2. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
+					shiftRIGHT();
+					//recalculate xDiff and yDiff
+					mapX = map[0][0].getX();
+					mapY = map[0][0].getY();
+					xDiff = x - mapX;
+					yDiff = y - mapY;
+					//add new section to map and
+					// store it in case of bad things...
+					map[xDiff][yDiff] = sectionToAdd;
+					store(xDiff, yDiff);
+					//make sure map is full
+					fillMap();
+				}
+				else if (yDiff < 0)
+				{
+					//the section to add is below the existing map
+					//shift map down
+					debug.log("yDiff < 0. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
+					shiftDOWN();
+					//recalculate xDiff and yDiff
+					mapX = map[0][0].getX();
+					mapY = map[0][0].getY();
+					xDiff = x - mapX;
+					yDiff = y - mapY;
+					//add new section to map and
+					// store it in case of bad things...
+					map[xDiff][yDiff] = sectionToAdd;
+					store(xDiff, yDiff);
+					//make sure map is full
+					fillMap();
+				}
+				else if (yDiff > 2)
+				{
+					//the section to add is above the existing map
+					//shift map up
+					debug.log("yDiff < 2. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
+					shiftUP();
+					//recalculate xDiff and yDiff
+					mapX = map[0][0].getX();
+					mapY = map[0][0].getY();
+					xDiff = x - mapX;
+					yDiff = y - mapY;
+					//add new section to map and
+					// store it in case of bad things...
+					map[xDiff][yDiff] = sectionToAdd;
+					store(xDiff, yDiff);
+					//make sure map is full
+					fillMap();
+				}
+				else
+				{
+					map[xDiff][yDiff] = sectionToAdd;
+					store(xDiff, yDiff);
+				}
 			}
 		}
 		catch (NullPointerException e)
@@ -98,17 +158,18 @@ public class Map
 		}
 	}
 	
-	void drop (int x, int y)
+	void drop (int i, int j)
 	{
-	
+		map[i][j] = null;
 	}
 	
 	void load (int x, int y)
 	{
-	
+		//if can load, load then call add(loadedSection, x, y);
+		// else generate(x, y);
 	}
 	
-	void store (int x, int y)
+	void store (int i, int j)
 	{
 	
 	}
@@ -118,6 +179,125 @@ public class Map
 
 		return null;
 	}*/
+	
+	void shiftUP()//trying to add a section that is above the current map... move map up -> move cells in current map down...
+	{
+		//store bottom sections
+		// in case of modifications
+		for(int i = 0; i <= 2; i++) //from left to right
+		{
+			//store the bottom section
+			store(i,2);
+		}
+		//move other sections down
+		for(int i = 0; i <= 2; i++)//from left to right
+		{
+			for(int j = 1; j >= 0; j--)//from the middle row to the bottom
+			{
+				//copy the section down one spot in the array
+				map[i][j + 1] = map[i][j];
+			}
+		}
+		//drop top sections
+		for(int i = 0; i <= 2; i++)//from left to right
+		{
+			//empty out the array
+			drop(i, 0);
+		}
+	}
+	
+	void shiftDOWN()//trying to add a section that is below the current map... move map down -> move cells in current map up...
+	{
+		//store top sections
+		// in case of modifications
+		for(int i = 0; i <= 2; i++)//from left to right
+		{
+			//store the top section
+			store(i, 0);
+		}
+		//move other sections down
+		for(int i = 0; i <= 2; i++)//from left to right
+		{
+			for(int j = 1; j <= 2; j++)//from the middle row to the top
+			{
+				//copy the section up one spot in the array
+				map[i][j - 1] = map[i][j];
+			}
+		}
+		//drop bottom sections
+		for(int i = 0; i <= 2; i++)//from left to right
+		{
+			//empty out the array
+			drop(i, 2);
+		}
+	}
+	
+	void shiftRIGHT()//trying to add a section that is to the right of the current map... move map right -> move cells in current map left...
+	{
+		//store left sections
+		// in case of modifications
+		for(int j = 0; j <= 2; j++)//from top to bottom
+		{
+			//store the left section
+			store(0, j);
+		}
+		//move other sections down
+		for(int i = 1; i <= 2; i++)//from the center column to right
+		{
+			for(int j = 0; j <= 2; j++)//from bottom to top
+			{
+				//copy the section up one spot in the array
+				map[i - 1][j] = map[i][j];
+			}
+		}
+		//drop right sections
+		for(int j = 0; j <= 2; j++)//from left to right
+		{
+			//empty out the array
+			drop(2, j);
+		}
+	}
+	
+	void shiftLEFT()//trying to add a section that is to the left of the current map... move map left -> move cells in current map right...
+	{
+		//store right sections
+		// in case of modifications
+		for(int j = 0; j <= 2; j++)//from top to bottom
+		{
+			//store the right section
+			store(2, j);
+		}
+		//move other sections down
+		for(int i = 1; i >= 0; i--)//from left to right
+		{
+			for(int j = 0; j <= 2; j++)//from bottom to top
+			{
+				//copy the section up one spot in the array
+				map[i + 1][j] = map[i][j];
+			}
+		}
+		//drop top sections
+		for(int j = 0; j <= 2; j++)//from left to right
+		{
+			//empty out the array
+			drop(0, j);
+		}
+	}
+	
+	void fillMap()
+	{
+		for(int i = 0; i <= 2; i++)
+		{
+			for(int j = 0; j <= 2; j++)
+			{
+				//if map[i][j] is null
+					int mapX = map[0][0].getX();
+					int mapY = map[0][0].getY();
+					load(mapX + i, mapY + j);
+				//else do nothing
+			}
+		}
+	}
 	
 	public void draw (Graphics2D g2d, int x, int y, int windowCenterX, int windowCenterY, int scale)
 	{

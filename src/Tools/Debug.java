@@ -42,4 +42,14 @@ public class Debug
 			System.out.println(new GsonBuilder().setPrettyPrinting().create().toJson(obj));
 		}
 	}
+	
+	public void enableStackTracing()
+	{
+		enableLocalStackTracing = true;
+	}
+	
+	public void disableStackTracing()
+	{
+		enableLocalStackTracing = false;
+	}
 }
