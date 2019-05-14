@@ -13,6 +13,10 @@ public class StoreToFile
 	public void storeSection(Section sectionToStore)
 	{
 	
+	}
 	
+	public Section getSection(int x, int y)
+	{
+		return null;
 	}
 }

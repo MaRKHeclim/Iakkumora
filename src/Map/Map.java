@@ -1,6 +1,7 @@
 package Map;
 
 import Game.Iakkumora;
+import Storage.StorageAPI;
 import Tools.Debug;
 import Tools.PseudoRNG;
 
@@ -18,6 +19,9 @@ public class Map
 	
 	static PseudoRNG mapRNG;
 	static int mapSeed;
+	
+	//TODO add list of generated points - make searchable...
+	//Use java Points
 	
 	public Map() //Constructor
 	{
@@ -167,11 +171,22 @@ public class Map
 	{
 		//if can load, load then call add(loadedSection, x, y);
 		// else generate(x, y);
+		
+		//if in list of generated points
+		//TODO finish this once I am keeping track of points that have been generated
+		if(false)
+		{
+			add(Iakkumora.storageAPI.getSection(x, y),x, y);
+		}
+		else
+		{
+			generate(x, y);
+		}
 	}
 	
 	void store (int i, int j)
 	{
-	
+		Iakkumora.storageAPI.store(map[i][j]);
 	}
 	
 	/*public Section getSection(int x, int y)

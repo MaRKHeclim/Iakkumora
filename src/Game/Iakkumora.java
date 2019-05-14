@@ -1,5 +1,6 @@
 package Game;
 
+import Storage.StorageAPI;
 import Tools.Debug;
 
 import java.awt.*;
@@ -31,9 +32,14 @@ public class Iakkumora extends javax.swing.JFrame //basically this class is a JF
 	// Iakkumora.mainWindow.getLayout().show(Iakkumora.mainWindow, Iakkumora.MAINSCREEN)
 	static String PLAYSCREEN = "PlayScreen";
 	
+	//this is the class that is responsible for directing file/database storage calls
+	public static StorageAPI storageAPI;
+	
 	Iakkumora() // constructor
 	{
-		
+		//initialize storageAPI and set storage methods
+		storageAPI = new StorageAPI();
+		storageAPI.setSectionStorageMethod(StorageAPI.SectionStorageMethod.FILE);
 		
 	}
 	

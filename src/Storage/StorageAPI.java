@@ -4,18 +4,24 @@ import Map.Section;
 
 public class StorageAPI
 {
+	//define possible values for the section storage method
 	public enum SectionStorageMethod {
-		FILE, MONGODB
+		FILE, //MONGODB
 	}
 	
+	//storage methods for different data types
 	SectionStorageMethod sectionStorageMethod;
+	
+	
+	//Storage Method classes
 	StoreToFile storeToFile;
 	
-	public StorageAPI(SectionStorageMethod mapStorageMethod)
+	public StorageAPI()
 	{
-		this.sectionStorageMethod = mapStorageMethod;
+	
 	}
 	
+	//Store sections of the map
 	public void store(Section sectionToStore)
 	{
 		switch(sectionStorageMethod)
@@ -23,9 +29,45 @@ public class StorageAPI
 			case FILE:
 				storeToFile.storeSection(sectionToStore);
 				break;
-			case MONGODB:
+			//case MONGODB:
 				
+				//break;
+		}
+	}
+	
+	//load sections of the map
+	public Section getSection(int x, int y)
+	{
+		//define a value to return
+		Section returnSection;
+		
+		//get the value that needs to be returned from the correct source
+		switch(sectionStorageMethod)
+		{
+			case FILE:
+				returnSection = storeToFile.getSection(x, y);
+				break;
+			//case MONGODB:
+			
+			//break;
+			default:
+				returnSection = null;
 				break;
 		}
+		
+		//return the value
+		return returnSection;
+	}
+	
+	//set the method (FILE / MONGODB) of section storage
+	public void setSectionStorageMethod(SectionStorageMethod sectionStorageMethod)
+	{
+		this.sectionStorageMethod = sectionStorageMethod;
+	}
+	
+	//get the section storage method
+	public SectionStorageMethod getSectionStorageMethod()
+	{
+		return this.sectionStorageMethod;
 	}
 }
