@@ -32,9 +32,9 @@ public class Map
 		
 		map = new Section[3][3];
 		
-		for(int i = -1; i <= 1; i++)
+		for(int i = 0; i <= 2; i++)
 		{
-			for(int j = -1; j <= 1; j++)
+			for(int j = 0; j <= 2; j++)
 			{
 				generate(i, j);
 			}
@@ -63,103 +63,108 @@ public class Map
 	void add (Section sectionToAdd, int x, int y)
 	{
 		Debug debug = new Debug("Map - Add", true, false);
+		int mapX, mapY;
 		try
 		{
-			int mapX = map[0][0].getX();
-			int mapY = map[0][0].getY();
-			int xDiff = x - mapX;
-			int yDiff = y - mapY;
-			if((xDiff < -1) || (xDiff > 3) || (yDiff < -1) || (yDiff > 3)) // xDiff or yDiff is more than one outside of the map
-			{
-				debug.enableStackTracing();
-				debug.log("xDiff or yDiff out of bounds... Going to have problems... xDiff: " + xDiff + " yDiff: " + yDiff);
-				debug.disableStackTracing();
-			}
-			else
-			{
-				if (xDiff < 0)
-				{
-					//the section to add is to the left of the existing map
-					//shift map left
-					debug.log("xDiff < 0. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
-					shiftLEFT();
-					//recalculate xDiff and yDiff
-					mapX = map[0][0].getX();
-					mapY = map[0][0].getY();
-					xDiff = x - mapX;
-					yDiff = y - mapY;
-					//add new section to map and
-					// store it in case of bad things...
-					map[xDiff][yDiff] = sectionToAdd;
-					store(xDiff, yDiff);
-					//make sure map is full
-					fillMap();
-				}
-				else if (xDiff > 2)
-				{
-					//the section to add is to the right of the existing map
-					//shift map right
-					debug.log("xDiff > 2. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
-					shiftRIGHT();
-					//recalculate xDiff and yDiff
-					mapX = map[0][0].getX();
-					mapY = map[0][0].getY();
-					xDiff = x - mapX;
-					yDiff = y - mapY;
-					//add new section to map and
-					// store it in case of bad things...
-					map[xDiff][yDiff] = sectionToAdd;
-					store(xDiff, yDiff);
-					//make sure map is full
-					fillMap();
-				}
-				else if (yDiff < 0)
-				{
-					//the section to add is below the existing map
-					//shift map down
-					debug.log("yDiff < 0. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
-					shiftDOWN();
-					//recalculate xDiff and yDiff
-					mapX = map[0][0].getX();
-					mapY = map[0][0].getY();
-					xDiff = x - mapX;
-					yDiff = y - mapY;
-					//add new section to map and
-					// store it in case of bad things...
-					map[xDiff][yDiff] = sectionToAdd;
-					store(xDiff, yDiff);
-					//make sure map is full
-					fillMap();
-				}
-				else if (yDiff > 2)
-				{
-					//the section to add is above the existing map
-					//shift map up
-					debug.log("yDiff < 2. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
-					shiftUP();
-					//recalculate xDiff and yDiff
-					mapX = map[0][0].getX();
-					mapY = map[0][0].getY();
-					xDiff = x - mapX;
-					yDiff = y - mapY;
-					//add new section to map and
-					// store it in case of bad things...
-					map[xDiff][yDiff] = sectionToAdd;
-					store(xDiff, yDiff);
-					//make sure map is full
-					fillMap();
-				}
-				else
-				{
-					map[xDiff][yDiff] = sectionToAdd;
-					store(xDiff, yDiff);
-				}
-			}
+			mapX = map[0][0].getX();
+			mapY = map[0][0].getY();
 		}
 		catch (NullPointerException e)
 		{
-			map[0][0] = sectionToAdd;
+			mapX = 0;
+			mapY = 0;
 		}
+		int xDiff = x - mapX;
+		int yDiff = y - mapY;
+		debug.log("                                                                 mapX: " + mapX + " mapY: " + mapY + " x: " + x + " y: " + y + " xDiff: " + xDiff + " yDiff: " + yDiff);
+		if((xDiff < -1) || (xDiff > 3) || (yDiff < -1) || (yDiff > 3)) // xDiff or yDiff is more than one outside of the map
+		{
+			debug.enableStackTracing();
+			debug.log("xDiff or yDiff out of bounds... Going to have problems... xDiff: " + xDiff + " yDiff: " + yDiff);
+			debug.disableStackTracing();
+		}
+		else
+		{
+			if (xDiff < 0)
+			{
+				//the section to add is to the left of the existing map
+				//shift map left
+				debug.log("xDiff < 0. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
+				shiftLEFT();
+				//recalculate xDiff and yDiff
+				mapX = map[0][0].getX();
+				mapY = map[0][0].getY();
+				xDiff = x - mapX;
+				yDiff = y - mapY;
+				//add new section to map and
+				// store it in case of bad things...
+				map[xDiff][yDiff] = sectionToAdd;
+				store(xDiff, yDiff);
+				//make sure map is full
+				fillMap();
+			}
+			else if (xDiff > 2)
+			{
+				//the section to add is to the right of the existing map
+				//shift map right
+				debug.log("xDiff > 2. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
+				shiftRIGHT();
+				//recalculate xDiff and yDiff
+				mapX = map[0][0].getX();
+				mapY = map[0][0].getY();
+				xDiff = x - mapX;
+				yDiff = y - mapY;
+				//add new section to map and
+				// store it in case of bad things...
+				map[xDiff][yDiff] = sectionToAdd;
+				store(xDiff, yDiff);
+				//make sure map is full
+				fillMap();
+			}
+			else if (yDiff < 0)
+			{
+				//the section to add is below the existing map
+				//shift map down
+				debug.log("yDiff < 0. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
+				shiftDOWN();
+				//recalculate xDiff and yDiff
+				mapX = map[0][0].getX();
+				mapY = map[0][0].getY();
+				xDiff = x - mapX;
+				yDiff = y - mapY;
+				//add new section to map and
+				// store it in case of bad things...
+				map[xDiff][yDiff] = sectionToAdd;
+				store(xDiff, yDiff);
+				//make sure map is full
+				fillMap();
+			}
+			else if (yDiff > 2)
+			{
+				//the section to add is above the existing map
+				//shift map up
+				debug.log("yDiff < 2. x: " + x + " y: " + y + " mapX: " + mapX + " mapY: " + mapY);
+				shiftUP();
+				//recalculate xDiff and yDiff
+				mapX = map[0][0].getX();
+				mapY = map[0][0].getY();
+				xDiff = x - mapX;
+				yDiff = y - mapY;
+				//add new section to map and
+				// store it in case of bad things...
+				map[xDiff][yDiff] = sectionToAdd;
+				store(xDiff, yDiff);
+				//make sure map is full
+				fillMap();
+			}
+			else
+			{
+				debug.log("In Bounds. Adding to map at: [" + xDiff + "][" + yDiff + "]");
+				map[xDiff][yDiff] = sectionToAdd;
+				store(xDiff, yDiff);
+			}
+		}
+		//debug.log("map[0][0].getX(): " + map[0][0].getX() + " map[0][0].getY(): " + map[0][0].getY());
 	}
 	
 	void drop (int i, int j)
@@ -186,7 +191,7 @@ public class Map
 	
 	void store (int i, int j)
 	{
-		Iakkumora.storageAPI.store(map[i][j]);
+		//Iakkumora.storageAPI.store(map[i][j]);
 	}
 	
 	/*public Section getSection(int x, int y)
