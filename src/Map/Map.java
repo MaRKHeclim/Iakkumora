@@ -191,7 +191,7 @@ public class Map
 	
 	void store (int i, int j)
 	{
-		//Iakkumora.storageAPI.store(map[i][j]);
+		Iakkumora.storageAPI.store(map[i][j]);
 	}
 	
 	/*public Section getSection(int x, int y)

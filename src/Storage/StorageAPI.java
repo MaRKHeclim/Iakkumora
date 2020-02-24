@@ -14,7 +14,7 @@ public class StorageAPI
 	
 	
 	//Storage Method classes
-	StoreToFile storeToFile;
+	StoreToFile storeToFile = new StoreToFile(new FileParameters());
 	
 	public StorageAPI()
 	{
