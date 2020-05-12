@@ -26,6 +26,10 @@ Algorithms/Methods
 	AStar
 	ThetaStar
 	JumpPoint
+	Poission disk sampling
+
+
+
 
 
 
