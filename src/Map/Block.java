@@ -9,9 +9,16 @@ public class Block
 	static int n, d;
 	int x, y;
 	Chunk[][] chunkArray;
+	
+	/**
+	 * Constructor - Used to Generate a New Block
+	 * 
+	 * @param x The x value of the chunk to be generated within the block.
+	 * @param y The y value of the chunk to be generated within the block.
+	 */
 	Block(int x, int y) //constructor
 	{
-		Debug debug = new Debug("Block - Constructor", false, false);
+		Debug debug = new Debug("Block - Constructor - New Block Generation", false, false);
 		debug.log("Creating a new Block");
 		this.x = x;
 		this.y = y;
@@ -24,6 +31,20 @@ public class Block
 				chunkArray[i][j] = new Chunk(i, j);
 			}
 		}
+	}
+	
+	/**
+	 * Constructor - Used to Load a Pregenerated Tile
+	 * 
+	 * @param x 		The x value of the chunk within the block.
+	 * @param y 		The y value of the chunk within the block.
+	 * @param chunkArray	The array of chunks to populate the block. 
+	 */
+	Block(int x, int y, Chunk[][] chunkArray)
+	{
+		this.x = x;
+		this.y = y;
+		this.chunkArray = chunkArray;
 	}
 	
 	static
