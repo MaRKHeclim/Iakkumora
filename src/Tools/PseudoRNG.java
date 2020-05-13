@@ -9,6 +9,7 @@ import java.util.Random;
  * <p>
  * This class is not multithread safe.
  * <p>
+ * https://github.com/magro/elliptic-benchmark/blob/master/src/main/java/bb/science/Lfsr.java#L1
  */
 
 public class PseudoRNG
