@@ -11,27 +11,7 @@ import static Tools.FileFunctions.writeFile;
 public class StoreToFile
 {
 	String mapFilePath;
-	//index file:
-	/*
-	[
-	{x, y, line},
-	{x, y, line},
-	.
-	.
-	.
-	]
-	 */
-//	ArrayList<StoreToFileIndexEntry> Index = new ArrayList<StoreToFileIndexEntry>();
-	//map file:
-	/*
-	[
-	{Section 1},
-	{Section 2}
-	.
-	.
-	.
-	]
-	 */
+	
 	public StoreToFile(FileParameters fileParameters)
 	{
 		mapFilePath = fileParameters.MapFilePath;
@@ -42,18 +22,12 @@ public class StoreToFile
 		Debug debug = new Debug("StoreToFile storeSection", true, false);
 		debug.log("here: x: " + sectionToStore.getX() + " y: " + sectionToStore.getY());
 		//debug.dumpObject(sectionToStore);
-		
-		//IndexEntry:
-//		debug.log(Index.size() + "");
-//		Index.add(new StoreToFileIndexEntry(sectionToStore.getX(), sectionToStore.getY(), Index.size()));
-		//debug.dumpObject(Index);
-//		writeFile(mapFilePath + "Index.txt", new GsonBuilder().setPrettyPrinting().create().toJson(Index));
-		
+
 		//Name Section File
 		String sectionFilePath = mapFilePath + "\\";
 		if(sectionToStore.getX() < 0)
 		{
-			sectionFilePath += "x_minus_" + sectionToStore.getX();
+			sectionFilePath += "x_minus_" + Math.abs(sectionToStore.getX());
 		}
 		else
 		{
@@ -61,7 +35,7 @@ public class StoreToFile
 		}
 		if(sectionToStore.getY() < 0)
 		{
-			sectionFilePath += "_y_minus_" + sectionToStore.getY();
+			sectionFilePath += "_y_minus_" + Math.abs(sectionToStore.getY());
 		}
 		else
 		{
@@ -73,41 +47,26 @@ public class StoreToFile
 	
 	public Section getSection(int x, int y)
 	{
+		String sectionFilePath = mapFilePath + "\\";
+		if(x < 0)
+		{
+			sectionFilePath += "x_minus_" + Math.abs(x);
+		}
+		else
+		{
+			sectionFilePath += "x_" + x;
+		}
+		if(y < 0)
+		{
+			sectionFilePath += "_y_minus_" + Math.abs(y);
+		}
+		else
+		{
+			sectionFilePath += "_y_" + y;
+		}
+		sectionFilePath += ".txt";
+		//readFile(sectionFilePath);
+		//regenerate/recreate section
 		return null;
 	}
-	/*
-	private class StoreToFileIndexEntry
-	{
-		private int x;
-		private int y;
-		private int line;
-		
-		StoreToFileIndexEntry(int x, int y, int line)
-		{
-			this.x = x;
-			this.y = y;
-			this.line = line;
-		}
-		
-		public int getX()
-		{
-			return x;
-		}
-		
-		public int getY()
-		{
-			return y;
-		}
-		
-		public int getLine()
-		{
-			return line;
-		}
-		
-		public void setLine(int line)
-		{
-			this.line = line;
-		}
-	}
-	*/
 }

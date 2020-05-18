@@ -40,7 +40,8 @@ public class Chunk
 	 * @param y				The y value of the chunk within the block.
 	 * @param tileArray		The Array of tiles to populate the chunk.
 	 */
-	public Chunk(int x, int y, Tile[][] tileArray) {
+	public Chunk(int x, int y, Tile[][] tileArray)
+	{
 		this.x = x;
 		this.y = y;
 		this.tileArray = tileArray;

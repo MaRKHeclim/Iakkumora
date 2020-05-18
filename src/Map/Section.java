@@ -41,9 +41,10 @@ public class Section
 	 *
 	 * @param x				The x value of the section within the map.
 	 * @param y				The y value of the section within the map.
-	 * @param blockArray	The Array of blocks to populate the section. 
+	 * @param blockArray	The Array of blocks to populate the section.
 	 */
-	public Section(int x, int y, Block[][] blockArray) {
+	public Section(int x, int y, Block[][] blockArray)
+	{
 		this.x = x;
 		this.y = y;
 		this.blockArray = blockArray;

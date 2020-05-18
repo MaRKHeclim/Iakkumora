@@ -68,4 +68,6 @@ public class FileFunctions
 		}
 		return 0;
 	}
+
+	//TODO Add readFile method
 }
