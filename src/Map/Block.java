@@ -13,8 +13,8 @@ public class Block
 	/**
 	 * Constructor - Used to Generate a New Block
 	 * 
-	 * @param x The x value of the chunk to be generated within the block.
-	 * @param y The y value of the chunk to be generated within the block.
+	 * @param x The x value of the block to be generated within the section.
+	 * @param y The y value of the block to be generated within the section.
 	 */
 	Block(int x, int y) //constructor
 	{
@@ -34,10 +34,10 @@ public class Block
 	}
 	
 	/**
-	 * Constructor - Used to Load a Pregenerated Tile
+	 * Constructor - Used to Load a Pregenerated Block
 	 * 
-	 * @param x 		The x value of the chunk within the block.
-	 * @param y 		The y value of the chunk within the block.
+	 * @param x 			The x value of the block within the section.
+	 * @param y 			The y value of the block within the section.
 	 * @param chunkArray	The array of chunks to populate the block. 
 	 */
 	Block(int x, int y, Chunk[][] chunkArray)

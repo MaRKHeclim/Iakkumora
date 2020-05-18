@@ -9,6 +9,13 @@ public class Section
 	static int n, d;
 	int x, y;
 	Block[][] blockArray;
+
+	/**
+	 * Constructor - Used to Generate a new Section
+	 *
+	 * @param x	The x value of the section within the map.
+	 * @param y	The y value of the section within the map.
+	 */
 	Section(int x, int y)//Constructor
 	{
 		Debug debug = new Debug("Section - Constructor", false, false);
@@ -28,7 +35,20 @@ public class Section
 		debug.log(d + "");
 		debug.log(blockArray.length + " x " + blockArray[0].length);
 	}
-	
+
+	/**
+	 * Constructor - Used to Load a Pregenerated Section
+	 *
+	 * @param x				The x value of the section within the map.
+	 * @param y				The y value of the section within the map.
+	 * @param blockArray	The Array of blocks to populate the section. 
+	 */
+	public Section(int x, int y, Block[][] blockArray) {
+		this.x = x;
+		this.y = y;
+		this.blockArray = blockArray;
+	}
+
 	static
 	{
 		n = 3;
