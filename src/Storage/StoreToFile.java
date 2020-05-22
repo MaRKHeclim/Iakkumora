@@ -2,16 +2,18 @@ package Storage;
 
 import Map.Section;
 import Tools.Debug;
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.util.ArrayList;
 
+import static Tools.FileFunctions.readFile;
 import static Tools.FileFunctions.writeFile;
 
 public class StoreToFile
 {
 	String mapFilePath;
-	
+
 	public StoreToFile(FileParameters fileParameters)
 	{
 		mapFilePath = fileParameters.MapFilePath;
@@ -47,6 +49,9 @@ public class StoreToFile
 	
 	public Section getSection(int x, int y)
 	{
+		Debug debug = new Debug("StoreToFile - getSection", true, false);
+		debug.log("here");
+
 		String sectionFilePath = mapFilePath + "\\";
 		if(x < 0)
 		{
@@ -65,8 +70,11 @@ public class StoreToFile
 			sectionFilePath += "_y_" + y;
 		}
 		sectionFilePath += ".txt";
-		//readFile(sectionFilePath);
+
+		String jsonSection = readFile(sectionFilePath);
+		Section returnSection = new Gson().fromJson(jsonSection, Section.class);
 		//regenerate/recreate section
-		return null;
+
+		return returnSection;
 	}
 }

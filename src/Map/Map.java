@@ -7,6 +7,7 @@ import Tools.PseudoRNG;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import static Tools.MathFunctions.fastfloor;
 import static Tools.MathFunctions.scale;
@@ -19,9 +20,8 @@ public class Map
 	
 	static PseudoRNG mapRNG;
 	static int mapSeed;
-	
-	//TODO add list of generated points - make searchable...
-	//Use java Points
+
+	HashSet<Point> mapIndex = new HashSet<>();
 	
 	public Map() //Constructor
 	{
@@ -39,7 +39,7 @@ public class Map
 				generate(i, j);
 			}
 		}
-		
+		//generate(0, 0);
 		
 		debug.log("map: " + map.toString());
 		
@@ -55,6 +55,8 @@ public class Map
 		Section newSection = new Section(x, y);
 		
 		debug.log("Create a new section now: x: " + x + " y: " + y);
+		mapIndex.add(new Point(x, y));
+		//debug.dumpObject(mapIndex);
 		add(newSection, x, y);
 	}
 	
@@ -165,6 +167,7 @@ public class Map
 			}
 		}
 		//debug.log("map[0][0].getX(): " + map[0][0].getX() + " map[0][0].getY(): " + map[0][0].getY());
+
 	}
 	
 	void drop (int i, int j)
@@ -174,12 +177,13 @@ public class Map
 	
 	void load (int x, int y)
 	{
+		Debug debug = new Debug("Map - load", true, false);
+		debug.log("here");
 		//if can load, load then call add(loadedSection, x, y);
 		// else generate(x, y);
-		
+
 		//if in list of generated points
-		//TODO finish this once I am keeping track of points that have been generated
-		if(false)
+		if(mapIndex.contains(new Point(x, y)))
 		{
 			add(Iakkumora.storageAPI.getSection(x, y),x, y);
 		}
@@ -310,10 +314,12 @@ public class Map
 		{
 			for(int j = 0; j <= 2; j++)
 			{
-				//if map[i][j] is null
+				if (map[i][j] == null)
+				{
 					int mapX = map[0][0].getX();
 					int mapY = map[0][0].getY();
 					load(mapX + i, mapY + j);
+				}
 				//else do nothing
 			}
 		}

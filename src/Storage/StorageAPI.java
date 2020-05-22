@@ -1,6 +1,7 @@
 package Storage;
 
 import Map.Section;
+import Tools.Debug;
 
 public class StorageAPI
 {
@@ -21,7 +22,9 @@ public class StorageAPI
 	
 	}
 	
-	//Store sections of the map
+	/**
+	 * Store sections of the map
+	 */
 	public void store(Section sectionToStore)
 	{
 		switch(sectionStorageMethod)
@@ -34,10 +37,19 @@ public class StorageAPI
 				//break;
 		}
 	}
-	
-	//load sections of the map
+
+	/**
+	 * load sections of the map
+	 *
+	 * @param x the x value of the section to get
+	 * @param y the y value of the section to get
+	 * @return	the section at the specified point
+	 */
 	public Section getSection(int x, int y)
 	{
+		Debug debug = new Debug("Storage API - getSection", true, false);
+		debug.log("here");
+
 		//define a value to return
 		Section returnSection;
 		
@@ -58,14 +70,21 @@ public class StorageAPI
 		//return the value
 		return returnSection;
 	}
-	
-	//set the method (FILE / MONGODB) of section storage
+
+	/**
+	 * set the method (FILE / MONGODB) of section storage
+	 *
+	 * @param sectionStorageMethod
+	 */
 	public void setSectionStorageMethod(SectionStorageMethod sectionStorageMethod)
 	{
 		this.sectionStorageMethod = sectionStorageMethod;
 	}
-	
-	//get the section storage method
+
+	/**
+	 * get the section storage method
+	 *
+	 */
 	public SectionStorageMethod getSectionStorageMethod()
 	{
 		return this.sectionStorageMethod;
